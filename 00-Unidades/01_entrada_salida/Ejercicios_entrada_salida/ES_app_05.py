@@ -40,10 +40,14 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        nombre_usuario = self.txt_nombre.get()
-        edad_usuario = self.txt_edad.get()
-        alert("Datos del usuario", f"Usted se llama {nombre_usuario} y su edad es {edad_usuario} años")
-        #La letra f por delante del mensaje, le indica al prompt que el mensaje literal tiene variables
+        nombre = self.txt_nombre.get()
+        edad = self.txt_edad.get()
+
+        #mensaje = "Usted se llama {0} y su edad es {1} años".format(nombre, edad)
+        #mensaje = "Usted se llama " + {nombre} + "y su edad es " + {edad} + "años"
+        mensaje = f"Usted se llama {nombre} y su edad es {edad} años"
+        alert("", mensaje)
+        #La letra f por delante del mensaje, le indica al prompt que el mensaje literal tiene variables (format)
 
     
 if __name__ == "__main__":

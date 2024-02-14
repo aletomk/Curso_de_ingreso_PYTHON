@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 Ejercicio: entrada_salida_07
 ---
@@ -49,18 +49,64 @@ class App(customtkinter.CTk):
         self.btn_dividir.grid(row=5, pady=10, columnspan=2, sticky="nsew")
 
     def btn_sumar_on_click(self):
-        pass
+        numero_uno = self.txt_operador_a.get()
+        numero_dos = self.txt_operador_b.get()
+
+        numero_uno = int(numero_uno)
+        numero_dos = int(numero_dos)
+
+        resultado_suma = numero_uno + numero_dos
+
+        alert("Operación matemática", f"El resultado de la suma es {resultado_suma}")
+
+        self.txt_operador_a.delete(0, "end") #Para eliminar los valores ingresados despues de realizar la operación
+        self.txt_operador_b.delete(0, "end")
 
     def btn_restar_on_click(self):
-        pass
+        numero_uno = self.txt_operador_a.get()
+        numero_dos = self.txt_operador_b.get()
+
+        numero_uno = int(numero_uno)
+        numero_dos = int(numero_dos)
+
+        resultado_resta = numero_uno - numero_dos
+
+        alert("Operación matemática", f"El resultado de la resta es {resultado_resta}")
+
+        self.txt_operador_a.delete(0, "end") #Para eliminar los valores ingresados despues de realizar la operación
+        self.txt_operador_b.delete(0, "end")
 
     def btn_multiplicar_on_click(self):
-        pass
+        numero_uno = self.txt_operador_a.get()
+        numero_dos = self.txt_operador_b.get()
+
+        numero_uno = int(numero_uno)
+        numero_dos = int(numero_dos)
+
+        resultado_multiplicacion = numero_uno * numero_dos
+
+        alert("Operación matemática", f"El resultado de la multiplicación es {resultado_multiplicacion}")
+
+        self.txt_operador_a.delete(0, "end") #Para eliminar los valores ingresados despues de realizar la operación
+        self.txt_operador_b.delete(0, "end")
 
     def btn_dividir_on_click(self):
-        pass
+        numero_uno = self.txt_operador_a.get()
+        numero_dos = self.txt_operador_b.get()
+
+        numero_uno = int(numero_uno)
+        numero_dos = int(numero_dos)
+
+        resultado_division = numero_uno / numero_dos
+
+        alert("Operación matemática", f"El resultado de la división es {resultado_division}")
+
+        self.txt_operador_a.delete(0, "end") #Para eliminar los valores ingresados despues de realizar la operación
+        self.txt_operador_b.delete(0, "end")
         
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")
     app.mainloop()
+
+    

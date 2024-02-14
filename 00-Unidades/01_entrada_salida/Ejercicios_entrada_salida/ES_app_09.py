@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 Ejercicio: entrada_salida_09
 ---
@@ -33,8 +33,12 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
+        sueldo = self.txt_sueldo.get()
+        sueldo = int(sueldo)
+
+        sueldo_final = sueldo * 1.15 #0.15 seria lo mismo que hacer regla de 3 simple. 1.15 ahorra la suma del 15% al valor total ----> (sueldo_final = sueldo + aumento_sueldo_15)
+
+        alert("Sueldo", f"Tu sueldo es : ${"%.2f" % sueldo_final}") #"%.2f" % --> %f se usa para dar formato a valores flotantes, debe estar entre comillas y separado del flotante por el operador de módulo. El número entre % y f (2 en este caso) le indica que tiene que redondear el número a 2 decimales
     
 if __name__ == "__main__":
     app = App()
