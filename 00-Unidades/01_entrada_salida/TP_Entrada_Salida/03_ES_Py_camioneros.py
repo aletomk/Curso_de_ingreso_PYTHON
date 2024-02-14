@@ -1,12 +1,13 @@
 import tkinter
+import math
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 TP: ES_Camioneros
 ---
@@ -46,11 +47,35 @@ class App(customtkinter.CTk):
         self.btn_tiempo_llegada.grid(row=4, pady=10, padx=30, columnspan=2, sticky="nsew")
     
     def btn_cantidad_camiones_on_click(self):
-        pass
+        toneladas = self.txt_toneladas.get()
+        toneladas = float(toneladas)
+
+        capacidad_carga = 3.5
+
+        camiones = toneladas / capacidad_carga
+
+        if toneladas == 1:
+            alert("Camiones", f"Se necesita un {math.ceil(camiones)} camion para transportar {toneladas} tonelada")
+        elif toneladas <= 3.5:
+            alert("Camiones", f"Se necesita un {math.ceil(camiones)} camion para transportar {toneladas} toneladas")
+        else:
+            alert("Camiones", f"Se necesitan {math.ceil(camiones)} camiones para transportar {toneladas} toneladas")
+            #la función ceil del método math redondea para arriba un float. La función floor redondea hacia abajo
 
     def btn_tiempo_llegada_on_click(self):
-        pass
-    
+        kilometros = self.txt_kilometros.get()
+        kilometros = int(kilometros)
+
+        velocidad = 90
+
+        horas_viaje = kilometros / velocidad
+
+        if horas_viaje < 1:
+            alert("Tiempo de viaje", "Cada camión tardará menos de una hora en transportar la carga")
+        elif horas_viaje == 1:
+            alert("Tiempo de viaje", f"Cada camión tardará {horas_viaje} hora en transportar la carga")
+        else:
+            alert("Tiempo de viaje", f"Cada camión tardará {round(horas_viaje)} horas en transportar la carga")
     
 if __name__ == "__main__":
     app = App()
