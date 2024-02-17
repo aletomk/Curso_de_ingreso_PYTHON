@@ -39,7 +39,7 @@ class App(customtkinter.CTk):
         
         self.txt_kilometros = customtkinter.CTkEntry(master=self)
         self.txt_kilometros.grid(row=1, column=1)
-       
+    
         self.btn_cantidad_camiones = customtkinter.CTkButton(master=self, text="Calcular cantidad de camiones", command=self.btn_cantidad_camiones_on_click)
         self.btn_cantidad_camiones.grid(row=3, pady=10, padx=30 ,columnspan=2, sticky="nsew")
         
@@ -54,13 +54,8 @@ class App(customtkinter.CTk):
 
         camiones = toneladas / capacidad_carga
 
-        if toneladas == 1:
-            alert("Camiones", f"Se necesita un {math.ceil(camiones)} camion para transportar {toneladas} tonelada")
-        elif toneladas <= 3.5:
-            alert("Camiones", f"Se necesita un {math.ceil(camiones)} camion para transportar {toneladas} toneladas")
-        else:
-            alert("Camiones", f"Se necesitan {math.ceil(camiones)} camiones para transportar {toneladas} toneladas")
-            #la función ceil del método math redondea para arriba un float. La función floor redondea hacia abajo
+        alert("Camiones", f"Se necesita {math.ceil(camiones)} camion/es para transportar {toneladas} toneladas")
+        #la función ceil del método math redondea para arriba un float. La función floor redondea hacia abajo
 
     def btn_tiempo_llegada_on_click(self):
         kilometros = self.txt_kilometros.get()
@@ -70,12 +65,7 @@ class App(customtkinter.CTk):
 
         horas_viaje = kilometros / velocidad
 
-        if horas_viaje < 1:
-            alert("Tiempo de viaje", "Cada camión tardará menos de una hora en transportar la carga")
-        elif horas_viaje == 1:
-            alert("Tiempo de viaje", f"Cada camión tardará {horas_viaje} hora en transportar la carga")
-        else:
-            alert("Tiempo de viaje", f"Cada camión tardará {round(horas_viaje)} horas en transportar la carga")
+        alert("Tiempo de viaje", f"Cada camión tardará {round(horas_viaje)} horas en transportar la carga")
     
 if __name__ == "__main__":
     app = App()
