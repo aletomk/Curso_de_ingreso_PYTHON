@@ -6,8 +6,8 @@ import customtkinter
 
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 Ejercicio: Match_02
 ---
@@ -21,7 +21,6 @@ en función del mes seleccionado:
 Aclaracion: tomamos a Julio y Agosto como los meses de invierno
 
 '''
-
 
 class App(customtkinter.CTk):
     
@@ -41,8 +40,15 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
-        pass
-    
+        mes = self.combobox_mes.get()
+
+        match (mes):
+            case ("Julio") | ("Agosto"):
+                alert("", "¡Abrígate que hace frío!")
+            case ("Enero") | ("Febrero") | ("Marzo") | ("Abril") | ("Mayo") | ("Junio"):
+                alert("", "Falta para el invierno")
+            case ("Septiembre") | ("Octubre") | ("Noviembre") | ("Diciembre"):
+                alert("", "¡Ya pasamos frío, ahora calor!")
     
 if __name__ == "__main__":
     app = App()
