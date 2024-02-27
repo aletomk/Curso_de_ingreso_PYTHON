@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 TP: Iluminación
 ---
@@ -43,7 +43,61 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        pass
+        marca = self.combobox_marca.get()
+        cantidad = self.combobox_cantidad.get()
+        cantidad = int(cantidad)
+
+        precio = 800
+        descuento = 0
+        total = precio * cantidad
+
+        mensaje_adicional = ""
+        mensaje_descuento = "No obtuviste descuento"
+
+        match (marca):
+            case "ArgentinaLuz":
+                if (cantidad == 5):
+                    descuento_marca = 0.6
+                elif (cantidad == 4):
+                    descuento_marca = 0.75
+                elif (cantidad == 3):
+                    descuento_marca = 0.85
+
+            case "FelipeLamparas":
+                if (cantidad == 5):
+                    descuento_marca = 0.7
+                elif (cantidad == 4):
+                    descuento_marca = 0.75
+                elif (cantidad == 3):
+                    descuento_marca = 0.9
+
+            case "Jeluz" | "HazIluminacion" | "Osram":
+                if (cantidad == 5):
+                    descuento_marca = 0.7
+                elif (cantidad == 4):
+                    descuento_marca = 0.8
+                elif (cantidad == 3):
+                    descuento_marca = 0.05
+
+        if (cantidad >= 6):
+            descuento_marca = 0.5
+        elif (cantidad <= 2):
+            descuento_marca = 1
+
+        total_final = total * descuento_marca
+        descuento = total - total_final
+        
+        if total_final > 4000:
+            descuento_adicional = total_final * 0.05
+            total_final = total_final - descuento_adicional
+            mensaje_adicional = f"Te cobramos un 5% menos (${descuento_adicional}) por gastar más de $4.000."
+
+        if cantidad > 2:
+            mensaje_descuento = f"Obtuviste un descuento de ${descuento}"
+
+        mensaje = f"El total de su compra es ${total_final}. {mensaje_descuento}. {mensaje_adicional}"
+        
+        alert("Resúmen de compra", mensaje)
         
     
 if __name__ == "__main__":

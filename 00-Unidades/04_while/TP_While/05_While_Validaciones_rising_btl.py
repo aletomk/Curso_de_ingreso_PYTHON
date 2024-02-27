@@ -5,13 +5,13 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 TP: While_validaciones_rising_btl
 ---
 Enunciado:
-Rising BTL. Empresa dedicada a la toma de datos para realizar estadísticas y censos nos pide realizar una carga de datos validada e ingresada 
+Rising BTL. Empresa dedicada a la toma de datos para realizar estadísticas y censos. Nos pide realizar una carga de datos validada e ingresada 
 por ventanas emergentes solamente (para evitar hacking y cargas maliciosas) y luego asignarla a cuadros de textos. 
 
 Los datos requeridos son los siguientes:
@@ -55,8 +55,32 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        pass
+        apellido = self.txt_apellido.get()
+        edad = self.txt_edad.get()
+        estado_civil = self.combobox_tipo.get()
+        legajo = self.txt_legajo.get()
+        
+        while True:
+            #VALIDACIÓN CASILLEROS VACÍOS
+            if (apellido == "" or edad == "" or estado_civil == "" or legajo == ""):
+                alert("Error", "Complete los casilleros vacíos")
+                break
 
+            #VALIDACIÓN EDAD
+            edad = int(edad)
+            if (edad < 18 or edad > 90):
+                alert("Error: edad", "Reingrese la edad")
+                break
+
+            #VALIDACIÓN LEGAJO
+            legajo = int(legajo)
+            if (legajo < 1000):
+                legajo = alert("Número de legajo", "Reingrese su número de legajo de 4 cifras")
+                break      
+
+            informe = f"Apellido: {apellido}\nEdad: {edad}\nEstado civil: {estado_civil}\nNúmero de legajo: {legajo}"
+            alert("Datos ingresados", informe)
+            break
 
 if __name__ == "__main__":
     app = App()

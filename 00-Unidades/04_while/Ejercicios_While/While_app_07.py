@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 Ejercicio: while_07
 ---
@@ -36,7 +36,25 @@ class App(customtkinter.CTk):
 
 
     def btn_comenzar_ingreso_on_click(self):
-        pass
+        contador_iteracion = 0
+        acumulador_numeros = 0
+
+        while (True):
+            numero = prompt("Números", "Ingrese un número")
+
+            if (numero == None):
+                break       #----> Cortar el ciclo cuando se cumple una condición externa. 
+                                    #Cancelar en el prompt en este caso.
+
+            numero = int(numero)  #----> Si estuviese antes del if y se ingresa cancelar, intentaría parsear "None"
+
+            acumulador_numeros += numero
+            contador_iteracion += 1
+        
+        promedio = acumulador_numeros / contador_iteracion
+
+        self.txt_suma_acumulada.insert(0, acumulador_numeros)
+        self.txt_promedio.insert(0, promedio)
 
     
 if __name__ == "__main__":

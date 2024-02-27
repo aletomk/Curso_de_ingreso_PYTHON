@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Alejo
+apellido: Tomkiewicz
 ---
 Ejercicio: for_07
 ---
@@ -26,7 +26,18 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
+        numero = prompt("Numero", "Ingrese un numero")
+        numero = int(numero)
+        bandera_divisor = False
+                                    #SI NUMERO = 7
+        for i in range(2, numero): # [2 - 3 - 4 - 5 - 6] 
+            if (numero % i == 0): # 7 / numero de iteracion del rango. 7/2, 7/3 y su resto es 0
+                bandera_divisor = True #encontró otro divisor ademas de si mismo y 1. #Cortar el ciclo for
+                break
+        if (bandera_divisor == False): #no encontró otro divisor que 1 y si mismo. Es primo
+            print("Es primo")
+        else:
+            print("No es primo")
         
     
 if __name__ == "__main__":
