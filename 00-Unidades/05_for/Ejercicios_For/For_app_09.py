@@ -3,6 +3,7 @@ from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
+import random
 
 '''
 nombre: Alejo
@@ -36,10 +37,38 @@ class App(customtkinter.CTk):
         self.btn_mostrar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
 
-    def btn_mostrar_on_click(self):
-        pass
-                
+    def btn_mostrar_on_click(self): 
+        numero_aleatorio = random.randint(1, 100)     
+        limite_intentos = 7
+        contador_intentos = 1
 
+        for _ in range(1, limite_intentos):
+            numero_ingresado = prompt("Número", "Ingrese un número: ")
+            numero_ingresado = int(numero_ingresado)
+            
+            if (numero_ingresado != numero_aleatorio):
+                if (numero_ingresado < numero_aleatorio):
+                    alert("Adivina el número","Falta...")
+                else:
+                    alert("Adivina el número","Se pasó...")
+            elif (numero_ingresado == numero_aleatorio):
+                if (contador_intentos == 1):
+                    alert("Adivina el número","Usted es un psíquico")
+                    break
+                elif (contador_intentos == 2):
+                    alert("Adivina el número","Excelente percepción")
+                    break
+                elif (contador_intentos == 3):
+                    alert("Adivina el número","Esto es suerte")
+                    break
+                elif (contador_intentos < 7):
+                    alert("Adivina el número","Excelente técnica")
+                    break
+                else:
+                    alert("Adivina el número","Perdiste, suerte para la próxima")
+                    break
+
+            contador_intentos += 1
     
 if __name__ == "__main__":
     app = App()
