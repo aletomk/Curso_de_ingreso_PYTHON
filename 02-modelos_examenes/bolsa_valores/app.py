@@ -34,7 +34,7 @@ Para ello deberás programar el botón  para poder cargar 10 operaciones de comp
     * Cantidad de instrumentos  (no menos de cero) 
     
 Realizar los siguientes informes:
- 
+
     #! 1) - Tipo de instrumento que menos se operó en total.
     #! 2) - Cantidad de usuarios que compraron entre 50  y 200 MEP 
     #! 3) - Cantidad de usuarios que no compraron CEDEAR 
@@ -62,31 +62,103 @@ class App(customtkinter.CTk):
 
 
     def btn_comenzar_ingreso_on_click(self):
-        #A) Carga de operación de compra
-        contador_operacion_compra = 0
-        
-        while (contador_operacion_compra < 3):
+        #Inicialización de variables
+        contador_usuarios = 0
+        contador_mep = 0
+        contador_bonos = 0
+        contador_cedear = 0
+        contador_usuarios_mep_50_200 = 0
+        acumulador_instrumentos = 0
+        acumulador_monto_pesos = 0
+        acumulador_monto_cedear = 0
+        acumulador_instrumentos_mep = 0
+
+        for _ in range(10):
+            #Ingreso y validación de datos
             nombre = input("Ingrese su nombre: ")
 
-            monto = input("Ingrese el monto en pesos de la operación (no menor a $10000): ")
-            monto = int(monto)
-            if (monto < 10000):
-                monto = input("Reingrese el monto en pesos de la operación (no menor a $10000): ")
-                monto = int(monto)
+            monto_pesos = input("Ingrese el monto en pesos (SIN $): ")
+            monto_pesos = int(monto_pesos)
+            while (monto_pesos < 10000):
+                monto_pesos = input("Error: El monto debe ser mayor a $10000. Reingrese el monto (SIN $): ")
+                monto_pesos = int(monto_pesos)
 
-            tipo_instrumento = input("Ingrese el tipo de instrumento: CEDEAR - BONOS - MEP: ")
-            if (tipo_instrumento != "CEDEAR" and tipo_instrumento != "BONOS" and tipo_instrumento != "MEP"):
-                tipo_instrumento = input("Reingrese el tipo instrumento: CEDEAR - BONOS - MEP: ")
+            tipo_instrumento = input("Ingrese el tipo de instrumento (CEDEAR - BONOS - MEP): ")
+            while (tipo_instrumento != "CEDEAR" and tipo_instrumento != "BONOS" and tipo_instrumento != "MEP"):
+                tipo_instrumento = input("Reingrese el tipo de instrumento (CEDEAR - BONOS - MEP): ")
 
             cantidad_instrumentos = input("Ingrese la cantidad de instrumentos: ")
             cantidad_instrumentos = int(cantidad_instrumentos)
-            if (cantidad_instrumentos == 0):
-                cantidad_instrumentos = input("Reingrese la cantidad de instrumentos: ")
+            while (cantidad_instrumentos < 1):
+                cantidad_instrumentos = input("Error: Reingrese la cantidad de instrumentos: ")
                 cantidad_instrumentos = int(cantidad_instrumentos)
 
-            contador_operacion_compra += 1
-            operacion_de_compra = print(f"Operación número {contador_operacion_compra}: {nombre} {monto} {tipo_instrumento} {cantidad_instrumentos}")
-   
+            #Procesamiento de datos
+            match(tipo_instrumento):
+                case "CEDEAR":
+                    if (contador_cedear == 0):
+                        nombre_primer_usuario_cedear = nombre
+                        inversion_primer_usuario_cedear = monto_pesos
+                    acumulador_monto_cedear += monto_pesos    
+                    contador_cedear += 1
+
+                case "BONOS":
+                    if (contador_bonos == 0):
+                        nombre_primer_usuario_bonos = nombre
+                        inversion_primer_usuario_bonos = monto_pesos
+                    contador_bonos += 1
+
+                case "MEP":
+                    if (cantidad_instrumentos >= 50 and cantidad_instrumentos <= 200):
+                        contador_usuarios_mep_50_200 += 1
+                    acumulador_instrumentos_mep += cantidad_instrumentos    
+                    contador_mep += 1
+                    
+            if (contador_usuarios == 0):
+                minimo_monto_invertido = monto_pesos
+                nombre_minimo_monto_invertido = nombre
+            else:
+                if (minimo_monto_invertido > monto_pesos):
+                    minimo_monto_invertido = monto_pesos
+                    nombre_minimo_monto_invertido = nombre
+                
+            contador_usuarios += 1
+            acumulador_instrumentos += cantidad_instrumentos
+            acumulador_monto_pesos += monto_pesos
+        
+        #Procesamiento de datos fuera del bucle
+        if (contador_cedear < contador_bonos and contador_cedear < contador_mep):
+            mensaje = f"El tipo de instrumento que menos se operó fue el CEDEAR"
+        elif (contador_bonos < contador_mep):
+            mensaje = f"El tipo de instrumento que menos se operó fueron los BONOS"
+        else:
+            mensaje = f"El tipo de instrumento que menos se operó fue el MEP"
+        informe_uno = mensaje
+
+        mensaje = f"Cantidad de usuarios que compraron entre 50  y 200 MEP: {contador_usuarios_mep_50_200}"
+        informe_dos = mensaje
+
+        cantidad_usuarios_no_cedear = contador_mep + contador_bonos
+        mensaje = f"Cantidad de usuarios que no compraron CEDEAR: {cantidad_usuarios_no_cedear}"
+        informe_tres = mensaje
+
+        mensaje = f"{nombre_primer_usuario_bonos} fue la primera persona en comprar BONOS e invirtió ${inversion_primer_usuario_bonos}. Por otro lado {nombre_primer_usuario_cedear} fue la primera persona en comprar CEDEAR e invirtió ${inversion_primer_usuario_cedear}"
+        informe_cuatro = mensaje
+
+        mensaje = f"{nombre_minimo_monto_invertido} fue la persona que menos invirtió: ${minimo_monto_invertido}"
+        informe_cinco = mensaje
+
+        promedio_monto_cedear = acumulador_monto_cedear / contador_cedear
+        mensaje = f"Promedio de dinero en CEDEAR ingresado en total: ${int(promedio_monto_cedear)}"
+        informe_seis = mensaje
+
+        promedio_instrumentos_mep = acumulador_instrumentos_mep / contador_mep
+        mensaje = f"Promedio de cantidad de instrumentos MEP vendidos en total: {int(promedio_instrumentos_mep)}"
+        informe_siete = mensaje
+
+        #Informes
+        print(f"INFORMES:\n{informe_uno}\n{informe_dos}\n{informe_tres}\n{informe_cuatro}\n{informe_cinco}\n{informe_seis}\n{informe_siete}")
+
 
 if __name__ == "__main__":
     app = App()
